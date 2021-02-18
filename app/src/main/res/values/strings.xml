@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SecondHomeTask</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_fragment">Profile Fragment</string>
+    <string name="enter_a_text">Enter a text</string>
+    <string name="send">Send</string>
+    <string name="home_fragment">Home Fragment</string>
+    <string name="this_is_a_host_fragment">This is a Host Fragment</string>
+</resources>
