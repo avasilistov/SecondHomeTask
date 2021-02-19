@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/fragment_profile"
     android:background="#4BCCB9"
-    tools:context=".ProfileFragment">
+    tools:context=".fragment.ProfileFragment">
 
     <TextView
     android:id="@+id/textView_fragment_profile_name"

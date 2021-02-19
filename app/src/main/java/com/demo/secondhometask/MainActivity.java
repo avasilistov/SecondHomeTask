@@ -1,16 +1,20 @@
 package com.demo.secondhometask;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.DialogFragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+
+import com.demo.secondhometask.fragment.HomeFragment;
+import com.demo.secondhometask.fragment.HostFragment;
+import com.demo.secondhometask.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
     public static final String MSG = "Message";
@@ -69,5 +73,35 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.frame_layout_main_activity, new HostFragment(), "host").commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.fragment_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_item_about:
+                startMenuAbout();
+                return true;
+            case R.id.menu_item_settings:
+                startMenuSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void startMenuSettings() {
+
+    }
+
+    private void startMenuAbout() {
+        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addToBackStack("about")
+                .add(R.id.fragment_host, DialogFragment.class, null);
+    }
 
 }
