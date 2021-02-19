@@ -17,21 +17,32 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
     Button button_main_activity_home;
     Button button_main_activity_profile;
+    public static String home_tag = "home";
+    public static String profile_tag = "profile";
 
     public class Listener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
+            //Находим tag верхнего элемента backStack
+
+            String tag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager()
+                    .getBackStackEntryCount() - 1).getName();
+
             switch (v.getId()) {
                 case R.id.button_main_activity_home:
-                    getSupportFragmentManager().findFragmentById(R.id.fragment_host).getChildFragmentManager()
-                            .beginTransaction().add(R.id.fragment_host, new HomeFragment(), "profile")
-                            .setReorderingAllowed(true).commit();
+                    if (tag != home_tag) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_host, new HomeFragment())
+                                .setReorderingAllowed(true).addToBackStack(home_tag).commit();
+                    }
                     break;
+
                 case R.id.button_main_activity_profile:
-                    getSupportFragmentManager().findFragmentById(R.id.fragment_host).getChildFragmentManager()
-                            .beginTransaction().add(R.id.fragment_host, new HomeFragment(), "profile")
-                            .setReorderingAllowed(true).commit();
+
+                    if (tag != profile_tag) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_host, new ProfileFragment())
+                                .setReorderingAllowed(true).addToBackStack(profile_tag).commit();
+                    }
                     break;
             }
         }
@@ -54,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         Listener listener = new Listener();
         button_main_activity_home.setOnClickListener(listener);
         button_main_activity_profile.setOnClickListener(listener);
+        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
+                .add(R.id.frame_layout_main_activity, new HostFragment(), "host").commit();
     }
 
 

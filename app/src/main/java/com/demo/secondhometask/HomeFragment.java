@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,50 +15,51 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.demo.secondhometask.MainActivity.MSG;
+import static com.demo.secondhometask.MainActivity.profile_tag;
 
 
-public class HomeFragment extends Fragment {
-    private static final String TAG = "ProfileFragment";
+public class HomeFragment extends Fragment implements MainActivity.FragmentCallback {
     private TextView textView_message;
-    private Button button_send;
     private EditText editText_text;
-    private View view;
+    MainActivity.FragmentCallback callback;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Устанавливаем текст отправленный предидущим фрагментом
+//        if (getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_host) instanceof MainActivity.FragmentCallback && savedInstanceState != null) {
+//            callback = (MainActivity.FragmentCallback) getActivity().getSupportFragmentManager()
+//                    .findFragmentById(R.id.fragment_host);
+//            if (callback != null)
+//                callback.passData(savedInstanceState.getString(MSG));
+//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-//        textView_message = view.findViewById(R.id.textView_fragment_home_text);
-//        button_send = view.findViewById(R.id.button_fragment_home_send);
-//        editText_text = view.findViewById(R.id.editText_fragment_home_text);
-//        Bundle bundle = getArguments();
-//        if (bundle != null) {
-//            String msg = bundle.getString(MSG);
-//            if (msg != null) {
-//                textView_message.setText(msg);
-//            } else {
-//                textView_message.setText("This Fragment added first");
-//            }
+//        textView_message = getActivity().findViewById(R.id.textView_fragment_home_text);
+//        if (savedInstanceState!=null) {
+//            textView_message.setText(savedInstanceState.getString(MSG));
 //        }
-//        button_send.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (editText_text.length() > 0) {
-//                    getChildFragmentManager().beginTransaction().setReorderingAllowed(true)
-//                            .replace(R.id.fragment_host, new ProfileFragment(), TAG).addToBackStack(TAG).commit();
-//                } else {
-//                    Toast.makeText(view.getContext(), "Enter text", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
 
-        return view;
+    @Override
+    public void onStart() {
+        super.onStart();
+        //получаем ссылки на поле ввода и поле для отображения текста
+        editText_text = getActivity().findViewById(R.id.editText_fragment_home_text);
+
+
+
+        //находим кнопку, вешаем на нее обработчик который проверяет на принадлежность к FragmentCallback и вызывает callback
+        getActivity().findViewById(R.id.button_fragment_home_send).setOnClickListener(t -> {
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_host, new ProfileFragment())
+                    .setReorderingAllowed(true).addToBackStack(profile_tag).commit();
+
+        });
     }
 
     @Override
@@ -66,4 +68,8 @@ public class HomeFragment extends Fragment {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void passData(String data) {
+        textView_message.setText(data);
+    }
 }
