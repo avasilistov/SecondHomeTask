@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.demo.secondhometask.fragment.AboutFragment;
 import com.demo.secondhometask.fragment.HomeFragment;
 import com.demo.secondhometask.fragment.HostFragment;
 import com.demo.secondhometask.fragment.ProfileFragment;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     public interface FragmentCallback {
         void passData(String data);
+        void getToast(String data);
     }
 
 
@@ -100,8 +102,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startMenuAbout() {
-        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addToBackStack("about")
-                .add(R.id.fragment_host, DialogFragment.class, null);
+//        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addToBackStack("about")
+//                .add(R.id.fragment_host, AboutFragment.class, null).commit();
+//        new AboutFragment().show(
+//                getSupportFragmentManager(), AboutFragment.TAG);
     }
 
 }

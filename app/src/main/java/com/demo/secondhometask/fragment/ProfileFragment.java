@@ -23,32 +23,36 @@ import static com.demo.secondhometask.MainActivity.home_tag;
 public class ProfileFragment extends Fragment implements MainActivity.FragmentCallback {
     private TextView textView_message;
     private EditText editText_text;
-    MainActivity.FragmentCallback callback;
-    Bundle bundle;
+    private MainActivity.FragmentCallback callback;
+    private String message;
+    private Bundle bundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState==null){
-            bundle = new Bundle();
-        }else {
-            bundle = savedInstanceState;
-        textView_message = getActivity().findViewById(R.id.textView_fragment_profile_text);
-        textView_message.setText(requireArguments().getString(MSG));
-        }
+
 
   }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        if(savedInstanceState==null){
+            bundle = new Bundle();
+            message = "Not message yet";
+        }else {
+            bundle = savedInstanceState;
+            message = requireArguments().getString(MSG);
+        }
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        textView_message = getActivity().findViewById(R.id.textView_fragment_profile_text);
+        textView_message.setText(message);
+
         //получаем ссылки на поле ввода и поле для отображения текста
         editText_text = getActivity().findViewById(R.id.editText_fragment_profile_text);
 
@@ -76,5 +80,10 @@ public class ProfileFragment extends Fragment implements MainActivity.FragmentCa
     @Override
     public void passData(String data) {
         textView_message.setText(data);
+    }
+
+    @Override
+    public void getToast(String data) {
+        Toast.makeText(getContext(), data, Toast.LENGTH_SHORT).show();
     }
 }

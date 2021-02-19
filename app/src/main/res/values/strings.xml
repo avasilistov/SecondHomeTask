@@ -11,4 +11,6 @@
     <string name="this_is_a_host_fragment">This is a Host Fragment</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
+    <string name="created_by_oleksandr_vasilistov">This awesome APP was created by Oleksandr Vasilistov in start of 2021.</string>
+    <string name="ok">Ok</string>
 </resources>

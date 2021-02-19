@@ -25,33 +25,36 @@ public class HomeFragment extends Fragment implements MainActivity.FragmentCallb
     private TextView textView_message;
     private EditText editText_text;
     private Bundle bundle;
-    MainActivity.FragmentCallback callback;
+    private String message;
+    private MainActivity.FragmentCallback callback;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState==null){
-            bundle = new Bundle();
-        }else {
-            bundle = savedInstanceState;
-            textView_message = getActivity().findViewById(R.id.textView_fragment_home_text);
-            textView_message.setText(requireArguments().getString(MSG));
-        }
+
    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        textView_message = getActivity().findViewById(R.id.textView_fragment_home_text);
-        if (savedInstanceState != null) {
-            textView_message.setText(savedInstanceState.getString(MSG));
+        if(savedInstanceState==null){
+            bundle = new Bundle();
+            message = "Not message yet";
+        }else {
+            bundle = savedInstanceState;
+            message = requireArguments().getString(MSG);
         }
+
+
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        textView_message = getActivity().findViewById(R.id.textView_fragment_home_text);
+        textView_message.setText(message);
         //получаем ссылки на поле ввода и поле для отображения текста
         editText_text = getActivity().findViewById(R.id.editText_fragment_home_text);
 
@@ -82,4 +85,10 @@ public class HomeFragment extends Fragment implements MainActivity.FragmentCallb
     public void passData(String data) {
         textView_message.setText(data);
     }
+
+    @Override
+    public void getToast(String data) {
+        Toast.makeText(getContext(), data, Toast.LENGTH_SHORT).show();
+    }
+
 }
