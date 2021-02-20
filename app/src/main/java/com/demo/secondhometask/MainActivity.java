@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import com.demo.secondhometask.fragment.AboutFragment;
 import com.demo.secondhometask.fragment.HomeFragment;
 import com.demo.secondhometask.fragment.HostFragment;
 import com.demo.secondhometask.fragment.ProfileFragment;
@@ -70,6 +72,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.about_menu:
+                onClickAbout();
+                return true;
+            case R.id.settings_menu:
+                onClickSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void onClickSettings() {
+
+    }
+
+    private void onClickAbout() {
+        new AboutFragment().showNow(getSupportFragmentManager(), "about");
     }
 
     // выводит Toast при нажатии на кнопку Send в меню About
