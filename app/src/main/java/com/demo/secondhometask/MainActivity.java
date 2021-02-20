@@ -2,19 +2,14 @@ package com.demo.secondhometask;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
 import com.demo.secondhometask.fragment.AboutFragment;
 import com.demo.secondhometask.fragment.HomeFragment;
 import com.demo.secondhometask.fragment.HostFragment;
@@ -22,10 +17,10 @@ import com.demo.secondhometask.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String MSG = "Message";
-    FrameLayout frameLayout;
-    Button button_main_activity_home;
-    Button button_main_activity_profile;
+    private Button button_main_activity_home;
+    private Button button_main_activity_profile;
     public static String home_tag = "home";
+    public static String host_tag = "host";
     public static String profile_tag = "profile";
 
 
@@ -59,11 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Работаем с фрагментами
         button_main_activity_home = findViewById(R.id.button_main_activity_home);
         button_main_activity_profile = findViewById(R.id.button_main_activity_profile);
-        frameLayout = findViewById(R.id.frame_layout_main_activity);
         button_main_activity_home.setOnClickListener(this);
         button_main_activity_profile.setOnClickListener(this);
-        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addToBackStack("host")
-                .add(R.id.frame_layout_main_activity, new HostFragment(), "host").commit();
+        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addToBackStack(host_tag)
+                .add(R.id.frame_layout_main_activity, new HostFragment(), host_tag).commit();
 
     }
 
@@ -95,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void onClickAbout() {
-        new AboutFragment().showNow(getSupportFragmentManager(), "about");
+        new AboutFragment().showNow(getSupportFragmentManager(), null);
     }
 
     // выводит Toast при нажатии на кнопку Send в меню About

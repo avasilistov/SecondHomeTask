@@ -29,7 +29,6 @@ public class AboutFragment extends DialogFragment  {
             public void onClick(DialogInterface dialog, int which) {
                 EditText message = (EditText) AboutFragment.this.getDialog().findViewById(R.id.editText_dialog_message);
                 String text = message.getText().toString();
-                Log.i("xxx", text);
                 MainActivity activity = (MainActivity) getActivity();
                 activity.showToast(text);
 
