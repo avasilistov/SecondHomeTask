@@ -3,6 +3,8 @@ package com.demo.secondhometask;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_main_activity_home.setOnClickListener(this);
         button_main_activity_profile.setOnClickListener(this);
         getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addToBackStack(host_tag)
-                .add(R.id.frame_layout_main_activity, new HostFragment(), host_tag).commit();
+                .add(R.id.frame_layout_main_activity, HostFragment.class, null).commit();
 
     }
 
@@ -85,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void onClickSettings() {
-
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     private void onClickAbout() {
