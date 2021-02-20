@@ -18,72 +18,48 @@ import com.demo.secondhometask.R;
 
 import static com.demo.secondhometask.MainActivity.MSG;
 import static com.demo.secondhometask.MainActivity.home_tag;
+import static com.demo.secondhometask.MainActivity.profile_tag;
 
 
-public class ProfileFragment extends Fragment implements MainActivity.FragmentCallback {
-    private TextView textView_message;
-    private EditText editText_text;
-    private MainActivity.FragmentCallback callback;
-    private String message;
-    private Bundle bundle;
+public class ProfileFragment extends Fragment {
+    private TextView text_message;
+    private EditText edit_message;
+    private String bundle_tag = "MSG";
+    private String host_tag = "host";
+    private String toast_text = "Enter a message";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
   }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(savedInstanceState==null){
-            bundle = new Bundle();
-            message = "Not message yet";
-        }else {
-            bundle = savedInstanceState;
-            message = requireArguments().getString(MSG);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        String message = "";
+
+
+        if (this.getArguments()!=null) {
+            message = requireArguments().getString(bundle_tag);
         }
-        return inflater.inflate(R.layout.fragment_profile, container, false);
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        textView_message = getActivity().findViewById(R.id.textView_fragment_profile_text);
-        textView_message.setText(message);
+        text_message = view.findViewById(R.id.textView_fragment_profile_text);
+        edit_message = view.findViewById(R.id.editText_fragment_profile_text);
+        text_message.setText(message);
+        view.findViewById(R.id.button_fragment_profile_send).setOnClickListener(v -> {
+            if (edit_message.length() > 0) {
+                Fragment fragment = new HomeFragment();
+                MainActivity.FragmentCallback parent = (MainActivity.FragmentCallback) getActivity()
+                        .getSupportFragmentManager().findFragmentByTag(host_tag);
 
-        //получаем ссылки на поле ввода и поле для отображения текста
-        editText_text = getActivity().findViewById(R.id.editText_fragment_profile_text);
-
-
-        //находим кнопку, вешаем на нее обработчик который проверяет на принадлежность к FragmentCallback и вызывает callback
-        getActivity().findViewById(R.id.button_fragment_profile_send).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (editText_text.length() > 0) {
-                    bundle.putString(MSG, editText_text.getText().toString());
-                    getParentFragmentManager().beginTransaction().replace(R.id.fragment_host, HomeFragment.class, bundle)
-                            .setReorderingAllowed(true).addToBackStack(home_tag).commit();
-                } else Toast.makeText(getContext(), "Enter a message", Toast.LENGTH_SHORT).show();
-            }
+                parent.passData(edit_message.getText().toString(), home_tag, fragment);
+            } else Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT).show();
         });
+        return view;
     }
 
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(MSG, editText_text.getText().toString());
-    }
 
-    @Override
-    public void passData(String data) {
-        textView_message.setText(data);
-    }
-
-    @Override
-    public void getToast(String data) {
-        Toast.makeText(getContext(), data, Toast.LENGTH_SHORT).show();
-    }
 }
