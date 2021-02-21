@@ -17,9 +17,8 @@ import com.demo.secondhometask.fragment.HostFragment;
 import com.demo.secondhometask.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String MSG = "Message";
-    private Button button_main_activity_home;
-    private Button button_main_activity_profile;
+    private Button button_home;
+    private Button button_profile;
     public static String home_tag = "home";
     public static String host_tag = "host";
     public static String profile_tag = "profile";
@@ -53,10 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Устанавливаем меню
         Toolbar toolbar_menu = (Toolbar) findViewById(R.id.toolbar_menu);
         setSupportActionBar(toolbar_menu);
-        button_main_activity_home = findViewById(R.id.button_main_activity_home);
-        button_main_activity_profile = findViewById(R.id.button_main_activity_profile);
-        button_main_activity_home.setOnClickListener(this);
-        button_main_activity_profile.setOnClickListener(this);
+        button_home = findViewById(R.id.button_main_activity_home);
+        button_profile = findViewById(R.id.button_main_activity_profile);
+        button_home.setOnClickListener(this);
+        button_profile.setOnClickListener(this);
 
         // Добавляем начальный фрагмент, который будет host для остальных
         getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addToBackStack(host_tag)

@@ -18,16 +18,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private EditTextPreference text_preference;
     private SwitchPreferenceCompat sync_preference;
     private SharedPreferences sp;
-    private String sync_changed = "Sync Setting is changed";
-    private String sync_restored = "Sync Setting is restored";
-    private String sign_changed = "Signature is changed";
-    private String sign_restored = "Signature is restored";
     private String sync = "sync";
     private String signature = "signature";
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        String undo = getResources().getString(R.string.undo);
         text_preference = findPreference(signature);
         sync_preference = findPreference(sync);
         sp = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -43,13 +40,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         // Если свойство "Your signature" изменилось и нажали на SnackBar UNDO, изменения не сохряняются
         text_preference.setOnPreferenceChangeListener((preference, newValue) -> {
+
+            String sign_changed = getResources().getString(R.string.sign_changed);
+            String sign_restored = getResources().getString(R.string.sign_restored);
             String saved_text = sp.getString(signature, "");
             result[0] = true;
 
             // Сравниваем начальное знаение свойства и новое, если отличаются запускаем SnackBar, с возможностью отмены изменений
             if (!newValue.equals(start_text[0])) {
+
                 Snackbar snackbar = Snackbar.make(getView(), sign_changed, Snackbar.LENGTH_LONG)
-                        .setAction("UNDO", v -> {
+                        .setAction(undo, v -> {
                             Snackbar snackbar1 = Snackbar.make(getView(), sign_restored, Snackbar.LENGTH_SHORT);
                             snackbar1.show();
 
@@ -71,11 +72,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
 
         sync_preference.setOnPreferenceChangeListener((preference, newValue) -> {
+            String sync_changed = getResources().getString(R.string.sync_changed);
+            String sync_restored = getResources().getString(R.string.sync_restored);
             result[0] = true;
             if (start_value[0] != newValue) {
 
                 Snackbar snackbar = Snackbar.make(getView(), sync_changed, Snackbar.LENGTH_LONG)
-                        .setAction("UNDO", v -> {
+                        .setAction(undo, v -> {
 
                             Snackbar snackbar1 = Snackbar.make(getView(), sync_restored, Snackbar.LENGTH_SHORT);
                             snackbar1.show();

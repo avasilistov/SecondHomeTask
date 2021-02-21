@@ -18,8 +18,6 @@ public class ProfileFragment extends Fragment {
     private EditText edit_message;
     private String bundle_tag = "MSG";
     private String host_tag = "host";
-    private String toast_text = "Enter a message";
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +28,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        String toast_text = getResources().getString(R.string.toast_text);
         String message = "";
 
 
@@ -41,6 +40,7 @@ public class ProfileFragment extends Fragment {
         edit_message = view.findViewById(R.id.editText_fragment_profile_text);
         text_message.setText(message);
         view.findViewById(R.id.button_fragment_profile_send).setOnClickListener(v -> {
+
             if (edit_message.length() > 0) {
                 Fragment fragment = new HomeFragment();
                 MainActivity.FragmentCallback parent = (MainActivity.FragmentCallback) getActivity()

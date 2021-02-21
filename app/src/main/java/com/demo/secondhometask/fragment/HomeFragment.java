@@ -24,7 +24,7 @@ public class HomeFragment extends Fragment  {
     private EditText edit_message;
     private String bundle_tag = "MSG";
     private String host_tag = "host";
-    private String toast_text = "Enter a message";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        String toast_text = getResources().getString(R.string.toast_text);
         String message = "";
         if (this.getArguments()!=null) {
             message = requireArguments().getString(bundle_tag);
