@@ -1,24 +1,16 @@
 package com.demo.secondhometask.fragment;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.demo.secondhometask.MainActivity;
 import com.demo.secondhometask.R;
-
-import static com.demo.secondhometask.MainActivity.MSG;
 import static com.demo.secondhometask.MainActivity.home_tag;
-import static com.demo.secondhometask.MainActivity.profile_tag;
 
 
 public class ProfileFragment extends Fragment {
@@ -32,7 +24,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +33,7 @@ public class ProfileFragment extends Fragment {
         String message = "";
 
 
-        if (this.getArguments()!=null) {
+        if (this.getArguments() != null) {
             message = requireArguments().getString(bundle_tag);
         }
 
@@ -59,7 +51,6 @@ public class ProfileFragment extends Fragment {
         });
         return view;
     }
-
 
 
 }

@@ -12,13 +12,15 @@ import com.demo.secondhometask.R;
 public class HostFragment extends Fragment implements MainActivity.FragmentCallback {
     private String home_tag = "home";
     private String bundle_tag = "MSG";
+    private String start = "Start";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle bundle = new Bundle();
         // Добавляем стартовый фрагмент во fragment_host
-        bundle.putString(bundle_tag, "Start");
+
+        bundle.putString(bundle_tag, start);
         getChildFragmentManager().beginTransaction().setReorderingAllowed(true)
                 .add(R.id.fragment_host, HomeFragment.class, bundle).addToBackStack(home_tag).commit();
         return inflater.inflate(R.layout.fragment_host, container, false);

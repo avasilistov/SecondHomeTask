@@ -43,17 +43,14 @@ public class HomeFragment extends Fragment  {
         text_message = view.findViewById(R.id.textView_fragment_home_text);
         edit_message = view.findViewById(R.id.editText_fragment_home_text);
         text_message.setText(message);
-        view.findViewById(R.id.button_fragment_home_send).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edit_message.length() > 0) {
-                    Fragment fragment = new ProfileFragment();
-                    MainActivity.FragmentCallback parent = (MainActivity.FragmentCallback) getActivity()
-                            .getSupportFragmentManager().findFragmentByTag(host_tag);
-                    parent.passData(edit_message.getText().toString(), profile_tag, fragment);
-                } else Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT).show();
+        view.findViewById(R.id.button_fragment_home_send).setOnClickListener(v -> {
+            if (edit_message.length() > 0) {
+                Fragment fragment = new ProfileFragment();
+                MainActivity.FragmentCallback parent = (MainActivity.FragmentCallback) getActivity()
+                        .getSupportFragmentManager().findFragmentByTag(host_tag);
+                parent.passData(edit_message.getText().toString(), profile_tag, fragment);
+            } else Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT).show();
 
-            }
         });
         return view;
     }

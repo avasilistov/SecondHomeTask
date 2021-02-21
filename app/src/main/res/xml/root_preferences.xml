@@ -16,6 +16,7 @@
 
         <SwitchPreferenceCompat
             app:key="sync"
+            app:defaultValue="true"
             app:title="@string/sync_title" />
 
 
