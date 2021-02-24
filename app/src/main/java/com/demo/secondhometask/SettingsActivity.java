@@ -32,18 +32,30 @@ public class SettingsActivity extends AppCompatActivity {
     // Задаем действия для кнопки Назад
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        String result = getResources().getString(R.string.result);
-        String message = getResources().getString(R.string.message);
+
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent();
-                intent.putExtra(result, message);
-                setResult(RESULT_OK, intent);
+                getResultInternt();
                 this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    private void getResultInternt() {
+        String result = getResources().getString(R.string.result);
+        String message = getResources().getString(R.string.message);
+        Intent intent = new Intent();
+        intent.putExtra(result, message);
+        setResult(RESULT_OK, intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        getResultInternt();
+        this.finish();
+        super.onBackPressed();
     }
 }
