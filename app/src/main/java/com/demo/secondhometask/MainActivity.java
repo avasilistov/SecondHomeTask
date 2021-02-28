@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BlendMode;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,10 @@ import com.demo.secondhometask.fragment.HomeFragment;
 import com.demo.secondhometask.fragment.HostFragment;
 import com.demo.secondhometask.fragment.ProfileFragment;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import static com.demo.secondhometask.fragment.HostFragment.TAG_FRAGMENT_HOME;
 import static com.demo.secondhometask.fragment.HostFragment.TAG_FRAGMENT_HOST;
 import static com.demo.secondhometask.fragment.HostFragment.TAG_FRAGMENT_PROFILE;
@@ -27,27 +34,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnProfile;
     public static final String RESULT = "result";
 
+    public interface FragmentCallback {
+         void passData(String message, String tag);
+    }
+
 
     @Override
     public void onClick(View v) {
+        HostFragment host = (HostFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main_activity);
         switch (v.getId()) {
             case R.id.button_main_activity_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_host, new HomeFragment())
-                        .setReorderingAllowed(true).addToBackStack(TAG_FRAGMENT_HOME).commit();
+                host.addChild(TAG_FRAGMENT_HOME, null);
 
                 break;
             case R.id.button_main_activity_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_host, new ProfileFragment())
-                        .setReorderingAllowed(true).addToBackStack(TAG_FRAGMENT_PROFILE).commit();
+                host.addChild(TAG_FRAGMENT_PROFILE, null);
 
                 break;
         }
     }
 
-    public interface FragmentCallback {
-        void passData(String data, String tag, Fragment fragment);
 
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Добавляем начальный фрагмент, который будет host для остальных
         getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).addToBackStack(TAG_FRAGMENT_HOST)
                 .add(R.id.frame_layout_main_activity, new HostFragment(), TAG_FRAGMENT_HOST).commit();
+
+
+
 
     }
 
@@ -118,5 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void showToast(String data) {
         Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
     }
+
 
 }

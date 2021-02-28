@@ -37,5 +37,6 @@
     <string name="toast_text">Enter a message</string>
     <string name="start">Start Fragment</string>
     <string name="undo">UNDO</string>
+    <string name="current_fragment">current fragmetn</string>
 
 </resources>

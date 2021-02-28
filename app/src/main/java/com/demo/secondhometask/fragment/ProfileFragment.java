@@ -47,7 +47,7 @@ public class ProfileFragment extends Fragment {
                 MainActivity.FragmentCallback parent = (MainActivity.FragmentCallback) getActivity()
                         .getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_HOST);
 
-                parent.passData(edit_message.getText().toString(), TAG_FRAGMENT_HOME, fragment);
+                parent.passData(edit_message.getText().toString(), TAG_FRAGMENT_HOME);
             } else Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT).show();
         });
         return view;

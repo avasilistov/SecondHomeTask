@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment  {
                 Fragment fragment = new ProfileFragment();
                 MainActivity.FragmentCallback parent = (MainActivity.FragmentCallback) getActivity()
                         .getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_HOST);
-                parent.passData(edit_message.getText().toString(), TAG_FRAGMENT_PROFILE, fragment);
+                parent.passData(edit_message.getText().toString(), TAG_FRAGMENT_PROFILE);
             } else Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT).show();
 
         });
